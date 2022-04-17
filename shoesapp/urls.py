@@ -20,6 +20,7 @@ urlpatterns = [
     path('forgotpass',views.forgotpass,name='forgotpass'),
     path('repass/',views.repass,name='repass'),
     path('userprofile/',views.userprofile,name='userprofile'),
+    path('allproducts/',views.allproducts,name='allproducts'),
     path('review/<int:pk>',views.review,name='review'),
 
 

@@ -2,94 +2,6 @@
 {% load static %}
 {% block head %}
 
-<style>
-	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-  
-  .wrapper {
-	  max-width: 350px;
-	  min-height: 500px;
-	  margin: 80px auto;
-	  padding: 40px 30px 30px 30px;
-	  background-color: #ecf0f3;
-	  border-radius: 15px;
-	  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff
-  }
-  
-  .logo {
-	  width: 80px;
-	  margin: auto
-  }
-  
-  .logo img {
-	  width: 100%;
-	  height: 80px;
-	  object-fit: cover;
-	  border-radius: 50%;
-	  box-shadow: 0px 0px 3px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaa7, -8px -8px 15px #fff
-  }
-  
-  .wrapper .name {
-	  font-weight: 600;
-	  font-size: 1.4rem;
-	  letter-spacing: 1.3px;
-	  padding-left: 10px;
-	  color: #555
-  }
-  
-  .wrapper .form-field input,textarea {
-	  width: 100%;
-	  display: block;
-	  border: none;
-	  outline: none;
-	  background: none;
-	  font-size: 1.2rem;
-	  color: #666;
-	  padding: 10px 15px 10px 10px
-  }
-  
-  .wrapper .form-field {
-	  padding-left: 10px;
-	  margin-bottom: 20px;
-	  border-radius: 20px;
-	  box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff
-  }
-  
-  .wrapper .form-field .fas {
-	  color: #555
-  }
-  
-  .wrapper .btn {
-	  box-shadow: none;
-	  width: 100%;
-	  height: 40px;
-	  background-color: #03A9F4;
-	  color: #fff;
-	  border-radius: 25px;
-	  box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff;
-	  letter-spacing: 1.3px
-  }
-  
-  .wrapper .btn:hover {
-	  background-color: #039BE5
-  }
-  
-  .wrapper a {
-	  text-decoration: none;
-	  font-size: 0.8rem;
-	  color: #03A9F4
-  }
-  
-  .wrapper a:hover {
-	  color: #039BE5
-  }
-  
-  @media(max-width: 380px) {
-	  .wrapper {
-		  margin: 30px 20px;
-		  padding: 40px 15px 15px 15px
-	  }
-  }
-  </style>
 		<div class="breadcrumbs">
 			<div class="container">
 				<div class="row">
@@ -113,28 +25,6 @@
 									</a>
 								</div>
 							</div>
-							<!-- <div class="item">
-								<div class="product-entry border">
-									<a href="#" class="prod-img">
-										<img src="{% static 'assets/images/item-2.jpg' %}" class="img-fluid" alt="Free html5 bootstrap 4 template">
-									</a>
-								</div>
-							</div> -->
-							<!-- <div class="item">
-								<div class="product-entry border">
-									<a href="#" class="prod-img">
-										<img src="{% static 'assets/images/item-3.jpg' %}" class="img-fluid" alt="Free html5 bootstrap 4 template">
-									</a>
-								</div>
-							</div> -->
-							<!-- <div class="item">
-								<div class="product-entry border">
-									<a href="#" class="prod-img">
-										<img src="{% static 'assets/images/item-4.jpg' %}" class="img-fluid" alt="Free html5 bootstrap 4 template">
-									</a>
-								</div>
-							</div> -->
-						<!-- </div> -->
 					</div>
 					<div class="col-sm-4">
 						<div class="product-desc">
@@ -145,6 +35,12 @@
 
 							</p>
 							<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+							<div class="block-26 mb-4">
+								<h4>Width</h4>
+								<ul>
+									<li><a href="#">{{pro.category}}</a></li>
+								</ul>
+							</div>
 							<div class="size-wrap">
 								<div class="block-26 mb-2">
 									<h4>Size</h4>
@@ -166,12 +62,7 @@
 				                  <li><a href="#">14</a></li>
 				               </ul>
 				            </div>
-				            <div class="block-26 mb-4">
-									<h4>Width</h4>
-				               <ul>
-				                  <li><a href="#">{{pro.category}}</a></li>
-				               </ul>
-				            </div>
+				            
 							</div>
                      <div class="input-group mb-4">
                      	<span class="input-group-btn">
@@ -222,83 +113,10 @@
 															<span class="text-left">{{i.name}}</span>
 															<span class="text-right">{{i.date}}</span>
 														</h4>
-														 <!-- <p class="star">
-															 <span>
-																 <i class="icon-star-full"></i>
-																 <i class="icon-star-full"></i>
-																 <i class="icon-star-full"></i>
-																 <i class="icon-star-half"></i>
-																 <i class="icon-star-empty"></i>
-															 </span>
-															 <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-														 </p> -->
 														<p>{{i.message}}</p>
 													</div><br><br><br><br>
 													{% endfor %}
 												</div>
-												
-											<!-- <div class="col-md-4">
-												<div class="rating-wrap">
-													<h3 class="head">Give a Review</h3>
-													<div class="wrap">
-														<p class="star">
-															<span>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																(98%)
-															</span>
-															<span>20 Reviews</span>
-														</p>
-														<p class="star">
-															<span>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-empty"></i>
-																(85%)
-															</span>
-															<span>10 Reviews</span>
-														</p>
-														<p class="star">
-															<span>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-empty"></i>
-																<i class="icon-star-empty"></i>
-																(70%)
-															</span>
-															<span>5 Reviews</span>
-														</p>
-														<p class="star">
-															<span>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-empty"></i>
-																<i class="icon-star-empty"></i>
-																<i class="icon-star-empty"></i>
-																(10%)
-															</span>
-															<span>0 Reviews</span>
-														</p>
-														<p class="star">
-															<span>
-																<i class="icon-star-full"></i>
-																<i class="icon-star-empty"></i>
-																<i class="icon-star-empty"></i>
-																<i class="icon-star-empty"></i>
-																<i class="icon-star-empty"></i>
-																(0%)
-															</span>
-															<span>0 Reviews</span>
-														</p>
-													</div>
-												</div>
-											</div> -->
 										</div>
 								    </div>
 								  </div>
@@ -310,45 +128,3 @@
 			</div>
 		</div>
 		{% endblock %}
-
-	<script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
-
-
-	</body>
-</html>
-

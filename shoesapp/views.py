@@ -110,6 +110,18 @@ def index(request):
         return render(request,'index.html',{'uid':uid,'pro':product})
     except:
         return render(request,'index.html',{'pro':product})
+    
+def allproducts(request):
+    product = pro.objects.filter(active=True)
+    if request.method == 'POST':
+        product= list(pro.objects.filter(name__contains=request.POST['search'],active=True))
+        product += list(pro.objects.filter(brand__contains=request.POST['search'],active=True))
+    try:
+        uid = Register.objects.get(email=request.session['clientemail'])
+        return render(request,'allproducts.html',{'uid':uid,'pro':product})
+    except:
+        return render(request,'allproducts.html',{'pro':product})
+
 def cpassword(request):
     uid = Register.objects.get(email=request.session['clientemail'])
     if request.method == 'POST':

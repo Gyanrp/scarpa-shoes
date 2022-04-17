@@ -35,3 +35,7 @@ class Review(models.Model):
 
     def __str__(self):
         return self.name
+
+# class Cart(models.Model):
+#     user = models.ForeignKey(Register,on_delete=models.CASCADE,null=True)
+#     size = models.CharField()

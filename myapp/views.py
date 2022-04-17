@@ -13,9 +13,10 @@ def aindex(request):
     uid = User.objects.get(email=request.session['email'])
     enq = s.Contact.objects.all()[::-1][0:10]
     review = s.Review.objects.all()[::-1][0:5]
+    creview=s.Review.objects.all().count
     pro = product.objects.all().count
     user = User.objects.all().count
-    return render(request,'aindex.html',{'uid':uid,'enq':enq,'pro':pro ,'user':user,'rev':review})
+    return render(request,'aindex.html',{'uid':uid,'enq':enq,'pro':pro ,'user':user,'rev':review,'crev':creview})
 
 
 def alogin(request):

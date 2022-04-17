@@ -54,9 +54,10 @@
 							<div id="colorlib-logo"><a href="{% url 'index' %}">SCARPA </a></div>
 						</div>
 						<div class="col-sm-5 col-md-3">
-			            <form action="#" class="search-wrap">
+			            <form action="{% url 'allproducts' %}" method="POST" class="search-wrap">
+							{% csrf_token %}
 			               <div class="form-group">
-			                  <input type="search" class="form-control search" placeholder="Search">
+			                  <input type="search" name="search" class="form-control search" placeholder="Search">
 			                  <button class="btn btn-primary submit-search text-center" type="submit"><i class="icon-search"></i></button>
 			               </div>
 			            </form>
@@ -65,15 +66,20 @@
 					<div class="row">
 						<div class="col-sm-12 text-left menu-1">
 							<ul>
-								<li class=""><a href="{% url 'index' %}">Home</a></li>
+								<li class="has-dropdown">
+									<a href="{% url 'index' %}">Home</a>
+									<ul class="dropdown">
+										<li><a href="{% url 'allproducts' %}">All Product</a></li>
+									</ul>
+								</li>
 								<li class="has-dropdown">
 									<a href="{% url 'men' %}">Men</a>
-									<ul class="dropdown">
+									<!-- <ul class="dropdown">
 										<li><a href="{% url 'cart' %}">Shopping Cart</a></li>
 										<li><a href="{% url 'checkout' %}">Checkout</a></li>
 										<li><a href="{% url 'order' %}">Order Complete</a></li>
 										<li><a href="{% url 'add' %}">Wishlist</a></li>
-									</ul>
+									</ul> -->
 								</li>
 								<li><a href="{% url 'women' %}">Women</a></li>
 								<li><a href="{% url 'kid' %}">Kid</a></li>
@@ -230,6 +236,28 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{% static 'assets/js/jquery.stellar.min.js' %}"></script>
 	<!-- Main -->
 	<script src="{% static 'assets/js/main.js' %}"></script>
+	
+	<script>
+		$(document).ready(function(){
+
+		var quantitiy=0;
+		   $('.quantity-right-plus').click(function(e){	        
+		        e.preventDefault();
+		        var quantity = parseInt($('#quantity').val());
+		            $('#quantity').val(quantity + 1);
+		    });
+
+		     $('.quantity-left-minus').click(function(e){
+		        e.preventDefault();
+		        var quantity = parseInt($('#quantity').val());
+		            if(quantity>0){
+		            $('#quantity').val(quantity - 1);
+		            }
+		    });
+		    
+		});
+	</script>
+
 
 	</body>
 </html>
