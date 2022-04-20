@@ -4,7 +4,11 @@ from pickle import TRUE
 from secrets import choice
 from unicodedata import name
 from django.db import models
+import random as r
 from myapp.models import *
+
+pics=['logo1.jpg','logo2.png','logo3.jpg','logo4.png','logo5.png','logo6.png','logo7.png','logo8.png','logo9.png','logo10.png','logo11.png','logo12.png','logo13.png','logo14.png','logo15.png','logo16.png']
+logo=r.choice(pics)
 
 class Register(models.Model):
     name=models.CharField(max_length=20)
@@ -12,7 +16,7 @@ class Register(models.Model):
     email=models.EmailField(unique=True)
     address=models.TextField(max_length=60)
     password=models.CharField(max_length=20)
-    pic=models.ImageField(upload_to='Profile Pic',default="avtar.png")
+    pic=models.ImageField(upload_to='Profile Pic',default=logo)
 
     def __str__(self):
         return self.name
