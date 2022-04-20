@@ -22,6 +22,8 @@ urlpatterns = [
     path('userprofile/',views.userprofile,name='userprofile'),
     path('allproducts/',views.allproducts,name='allproducts'),
     path('review/<int:pk>',views.review,name='review'),
+    path('carts/',views.carts,name='carts'),
+    path('deletecarts/<int:pk>',views.deletecarts,name='deletecarts'),
 
 
 

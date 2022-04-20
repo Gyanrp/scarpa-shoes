@@ -14,3 +14,6 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(models.Review)
 class UserAdmin(admin.ModelAdmin):
     list_display = ['name','message','product','date']
+
+admin.site.register(models.Cart)
+

@@ -1,6 +1,7 @@
 import email
 from msilib.schema import Class
 from pickle import TRUE
+from secrets import choice
 from unicodedata import name
 from django.db import models
 from myapp.models import *
@@ -36,6 +37,12 @@ class Review(models.Model):
     def __str__(self):
         return self.name
 
-# class Cart(models.Model):
-#     user = models.ForeignKey(Register,on_delete=models.CASCADE,null=True)
-#     size = models.CharField()
+class Cart(models.Model):
+    user = models.ForeignKey(Register,on_delete=models.CASCADE,null=True)
+    size = models.CharField(max_length=60)
+    qty = models.IntegerField()
+    cart=models.ForeignKey(product,on_delete=models.CASCADE,null=True)
+
+    def __str__(self):
+        return self.user.name
+    

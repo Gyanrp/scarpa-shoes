@@ -1,7 +1,9 @@
+import re
 from django.shortcuts import render,redirect
 from django.conf import settings
 from django.core.mail import send_mail
 from .models import *
+from django.http import JsonResponse
 from random import randrange
 from myapp.models import product as pro
 from myapp.models import Category
@@ -217,6 +219,30 @@ def product_details(request,pk):
     except:
         return render(request,'product-detail.html',{'pro':product,'creview':creview,'review':review})
 
+def carts(request):
+    try:
+        uid = Register.objects.get(email=request.session['clientemail'])
+        product=pro.objects.get(id=request.POST['id'])
+        try:
+            cart= Cart.objects.get(user=uid,cart = product) 
+            cart.qty += int(request.POST['qty'])
+            cart.save() 
+        except:
+            cart=Cart.objects.create(
+                cart=product,
+                size=request.POST['size'],
+                qty=request.POST['qty'],
+                user=uid,
+            )            
+        return JsonResponse({'msg':'Added To Cart'})
+    except:
+        return JsonResponse({'msg':'Please Login and try Again'})
+
+def deletecarts(request,pk):
+    cart=Cart.objects.get(id=pk)
+    cart.delete()
+    return redirect('cart')
+
 def review(request,pk):
     product = pro.objects.get(id=pk)
     creview=Review.objects.all().count
@@ -236,6 +262,12 @@ def review(request,pk):
     except:
         return redirect('login')
 def cart(request):
-    return render(request,'cart.html')
+    try:
+        uid = Register.objects.get(email=request.session['clientemail'])
+        cart=Cart.objects.filter(user=uid)
+        # total=int(cart.cart.price)*int(cart.qty)
+        return render(request,'cart.html',{'cart':cart})
+    except:
+        return redirect('login')
 def add(request):
     return render(request,'add-to-wishlist.html')
