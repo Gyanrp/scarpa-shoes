@@ -7,7 +7,6 @@ urlpatterns = [
     path('kid',views.kid,name='kid'),
     path('add',views.add,name='add'),
     path('cart',views.cart,name='cart'),
-    path('checkout',views.checkout,name='checkout'),
     path('contact',views.contact,name='contact'),
     path('order',views.order,name='order'),
     path('login',views.login,name='login'),
@@ -24,6 +23,8 @@ urlpatterns = [
     path('review/<int:pk>',views.review,name='review'),
     path('carts/',views.carts,name='carts'),
     path('deletecarts/<int:pk>',views.deletecarts,name='deletecarts'),
+    path('checkout/<int:pk>',views.checkout,name='checkout'),
+
 
 
 

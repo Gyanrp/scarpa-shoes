@@ -109,7 +109,8 @@ def index(request):
     product = pro.objects.filter(active=True)
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
-        return render(request,'index.html',{'uid':uid,'pro':product})
+        ccart=Cart.objects.filter(user=uid).count
+        return render(request,'index.html',{'uid':uid,'pro':product,'ccart':ccart})
     except:
         return render(request,'index.html',{'pro':product})
     
@@ -120,7 +121,8 @@ def allproducts(request):
         product += list(pro.objects.filter(brand__contains=request.POST['search'],active=True))
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
-        return render(request,'allproducts.html',{'uid':uid,'pro':product})
+        ccart=Cart.objects.filter(user=uid).count()
+        return render(request,'allproducts.html',{'uid':uid,'pro':product,'ccart':ccart})
     except:
         return render(request,'allproducts.html',{'pro':product})
 
@@ -140,6 +142,8 @@ def contact(request):
 
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
+        ccart=Cart.objects.filter(user=uid).count()
+
         if request.method == 'POST':
             Contact.objects.create(
                 name=request.POST['name'],
@@ -148,8 +152,8 @@ def contact(request):
                 message=request.POST['message']
             )
             msg='Complant is Added'
-            return render(request,'contact.html',{'msg':msg,'uid':uid})
-        return render(request,'contact.html',{'uid':uid})
+            return render(request,'contact.html',{'msg':msg,'uid':uid,'ccart':ccart})
+        return render(request,'contact.html',{'uid':uid,'ccart':ccart})
     except:
         if request.method == 'POST':
             Contact.objects.create(
@@ -163,32 +167,65 @@ def contact(request):
         return render(request,'contact.html')
 def kid(request):
     product = pro.objects.filter(active=True)
+    
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
-        return render(request,'kid.html',{'uid':uid,'pro':product})
+        ccart=Cart.objects.filter(user=uid).count()
+        return render(request,'kid.html',{'uid':uid,'pro':product,'ccart':ccart})
     except:
         return render(request,'kid.html',{'pro':product})
 
 def about(request):
-    return render(request,'about.html')
-def men(request):
-    product = pro.objects.filter(active=True)
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
-        return render(request,'men.html',{'uid':uid,'pro':product})
+        ccart=Cart.objects.filter(user=uid).count()
+        return render(request,'about.html',{'ccart':ccart})
+    except:
+        return render(request,'about.html')
+
+def men(request):
+    product = pro.objects.filter(active=True)
+    
+    try:
+        uid = Register.objects.get(email=request.session['clientemail'])
+        ccart=Cart.objects.filter(user=uid).count()
+        return render(request,'men.html',{'uid':uid,'pro':product,'ccart':ccart})
     except:
         return render(request,'men.html',{'pro':product})
 
 def women(request):
     product = pro.objects.filter(active=True)
+   
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
-        return render(request,'women.html',{'uid':uid,'pro':product})
+        ccart=Cart.objects.filter(user=uid).count()
+        return render(request,'women.html',{'uid':uid,'pro':product,'ccart':ccart})
     except:
          return render(request,'women.html',{'pro':product})   
 
-def checkout(request):
-    return render(request,'checkout.html')
+def checkout(request,pk):
+    if request.method == 'POST':
+        uid = Register.objects.get(email=request.session['clientemail'])
+        product = pro.objects.get(id=pk)
+        check = Checkout.objects.create(
+            user=uid,
+            product=product,
+            address=request.POST['address'],
+            pay_mode=request.POST['pay_mode']
+
+        )
+        if request.method['pay_mode'] == 'online':
+            return render(request,'pay.html')
+        else:
+            msg = 'your order is confrom.'
+            return render(request,'order-complete.html',{'uid':uid,'check'=check})
+
+    try:
+            uid=Register.objects.get(email=request.session['clientemail'])
+            product=pro.objects.get(id=pk)
+            return render(request,'checkout.html',{'uid':uid,'pro':product})
+    except:
+        return redirect('login')
 
 def order(request):
     return render(request,'order-complete.html')
@@ -197,6 +234,8 @@ def order(request):
 
 def userprofile(request):
     uid = Register.objects.get(email=request.session['clientemail'])
+    ccart=Cart.objects.filter(user=uid).count()
+
     if request.method == 'POST':
         uid.name = request.POST['name']
         uid.email= request.POST['email']
@@ -206,8 +245,8 @@ def userprofile(request):
         if 'pic' in request.FILES:
             uid.pic = request.FILES['pic']
         uid.save()
-        return render(request,'userprofile.html',{'uid':uid,'msg':'Profile Updated'})
-    return render(request,'userprofile.html',{'uid':uid})
+        return render(request,'userprofile.html',{'uid':uid,'msg':'Profile Updated','ccart':ccart})
+    return render(request,'userprofile.html',{'uid':uid,'ccart':ccart})
 
 def product_details(request,pk):
     product = pro.objects.get(id=pk)
@@ -215,7 +254,8 @@ def product_details(request,pk):
     review=Review.objects.all()
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
-        return render(request,'product-detail.html',{'uid':uid,'pro':product,'creview':creview,'review':review})
+        ccart=Cart.objects.filter(user=uid).count()
+        return render(request,'product-detail.html',{'uid':uid,'pro':product,'creview':creview,'review':review,'ccart':ccart})
     except:
         return render(request,'product-detail.html',{'pro':product,'creview':creview,'review':review})
 
@@ -247,6 +287,7 @@ def review(request,pk):
     product = pro.objects.get(id=pk)
     creview=Review.objects.all().count
     review=Review.objects.all()
+    ccart=Cart.objects.filter(user=uid).count()
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
         if request.method=='POST':
@@ -258,15 +299,24 @@ def review(request,pk):
             )
             ms='Review is Send'
             return render(request,'review.html',{'uid':uid,'pro':product,'ms':ms})
-        return render(request,'review.html',{'uid':uid,'pro':product,'creview':creview,'review':review})
+        return render(request,'review.html',{'uid':uid,'pro':product,'creview':creview,'review':review,'ccart':ccart})
     except:
         return redirect('login')
 def cart(request):
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
         cart=Cart.objects.filter(user=uid)
-        # total=int(cart.cart.price)*int(cart.qty)
-        return render(request,'cart.html',{'cart':cart})
+        ccart=Cart.objects.filter(user=uid).count()
+        
+       
+        print(cart)
+        car = 0
+        total = 0 
+        for i in cart:
+            total = (i.cart.price * i.qty)
+            car += (i.cart.price * i.qty)
+
+        return render(request,'cart.html',{'uid':uid,'cart':cart,'car':car,'total':total,'ccart':ccart})
     except:
         return redirect('login')
 def add(request):

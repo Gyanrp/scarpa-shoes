@@ -41,6 +41,8 @@ class Review(models.Model):
     def __str__(self):
         return self.name
 
+
+
 class Cart(models.Model):
     user = models.ForeignKey(Register,on_delete=models.CASCADE,null=True)
     size = models.CharField(max_length=60)
@@ -48,5 +50,25 @@ class Cart(models.Model):
     cart=models.ForeignKey(product,on_delete=models.CASCADE,null=True)
 
     def __str__(self):
-        return self.user.name
+        return self.user.name  
+
+class Checkout(models.Model):
+
+    user = models.ForeignKey(Register,on_delete=models.CASCADE)
+    product=models.ForeignKey(product,on_delete=models.CASCADE)
+    address=models.TextField(max_length=60)
+    date = models.DateField()
+    pay_mode = models.CharField(max_length=50,choices=[('cod','cod'),('online','online')])
+    pay_id = models.CharField(max_length=30,null=True,blank=True)
+    verify = models.BooleanField(default=False)
+    amount = models.IntegerField(default=0)
+    pay_at = models.DateTimeField(auto_now_add=True)
+    
+
+    def __str__(self):
+        return str(self.date)
+
+    
+
+    
     

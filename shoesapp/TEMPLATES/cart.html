@@ -109,7 +109,7 @@
 											<p><span>Discount:</span> <span>$45.00</span></p>
 										</div>
 										<div class="grand-total">
-											<p><span><strong>Total:</strong></span> <span>$450.00</span></p>
+											<p><span><strong>Total:</strong></span> <span>{{car}}</span></p>
 										</div>
 									</div>
 								</div>
@@ -171,10 +171,5 @@
 				</div>
 			</div>
 		</div>
-
-		<script>
-			$('.product-cart d-flex').each(function(){
-				total += parseFloat($(this).children('.price').text());
-			});
-		</script>
-		{% endblock %}
+		
+{% endblock %}

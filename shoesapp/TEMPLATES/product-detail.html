@@ -75,7 +75,7 @@
                   	<div class="row">
 	                  	<div class="col-sm-6 text-center">
 									<p class="addtocart"><button type="button" onclick='myfunction({{pro.id}})'  class="btn btn-primary btn-addtocart" style=" height: 50px;" value=""><i class="icon-shopping-cart"></i> Add to Cart</button></p>
-									<p class="addtocart"><a href="" class="btn btn-primary btn-addtocart">Buy Now</a></p>
+									<p class="addtocart"><a href="{% url 'checkout' pro.id %}" class="btn btn-primary btn-addtocart">Buy Now</a></p>
 								</div>
 							</div>
 						</div>

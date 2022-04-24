@@ -16,4 +16,6 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ['name','message','product','date']
 
 admin.site.register(models.Cart)
+admin.site.register(models.Checkout)
+
 
