@@ -19,7 +19,9 @@
                     <div class="desc">
                         <h2><a href="">{{i.name}}</a></h2>
                         <span class="price">{{i.price}}</span>
+                        <span class="price">{{i.brand}}</span>
                     </div>
+                    <a href="{% url 'product_details' i.id %}"><button class="btn btn-primary">View Product</button></a>
                 </div>
             </div>
             

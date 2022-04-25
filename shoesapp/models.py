@@ -52,12 +52,10 @@ class Cart(models.Model):
     def __str__(self):
         return self.user.name  
 
-class Checkout(models.Model):
+class Order(models.Model):
 
-    user = models.ForeignKey(Register,on_delete=models.CASCADE)
-    product=models.ForeignKey(product,on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart,on_delete=models.CASCADE,null=True)
     address=models.TextField(max_length=60)
-    date = models.DateField()
     pay_mode = models.CharField(max_length=50,choices=[('cod','cod'),('online','online')])
     pay_id = models.CharField(max_length=30,null=True,blank=True)
     verify = models.BooleanField(default=False)
@@ -66,9 +64,4 @@ class Checkout(models.Model):
     
 
     def __str__(self):
-        return str(self.date)
-
-    
-
-    
-    
+        return str(self.pay_at)

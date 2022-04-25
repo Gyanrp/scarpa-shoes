@@ -167,7 +167,6 @@ def contact(request):
         return render(request,'contact.html')
 def kid(request):
     product = pro.objects.filter(active=True)
-    
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
         ccart=Cart.objects.filter(user=uid).count()
@@ -185,7 +184,6 @@ def about(request):
 
 def men(request):
     product = pro.objects.filter(active=True)
-    
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
         ccart=Cart.objects.filter(user=uid).count()
@@ -201,31 +199,10 @@ def women(request):
         ccart=Cart.objects.filter(user=uid).count()
         return render(request,'women.html',{'uid':uid,'pro':product,'ccart':ccart})
     except:
-         return render(request,'women.html',{'pro':product})   
+         return render(request,'women.html',{'pro':product})  
 
-def checkout(request,pk):
-    if request.method == 'POST':
-        uid = Register.objects.get(email=request.session['clientemail'])
-        product = pro.objects.get(id=pk)
-        check = Checkout.objects.create(
-            user=uid,
-            product=product,
-            address=request.POST['address'],
-            pay_mode=request.POST['pay_mode']
 
-        )
-        if request.method['pay_mode'] == 'online':
-            return render(request,'pay.html')
-        else:
-            msg = 'your order is confrom.'
-            return render(request,'order-complete.html',{'uid':uid,'check'=check})
 
-    try:
-            uid=Register.objects.get(email=request.session['clientemail'])
-            product=pro.objects.get(id=pk)
-            return render(request,'checkout.html',{'uid':uid,'pro':product})
-    except:
-        return redirect('login')
 
 def order(request):
     return render(request,'order-complete.html')
@@ -287,9 +264,9 @@ def review(request,pk):
     product = pro.objects.get(id=pk)
     creview=Review.objects.all().count
     review=Review.objects.all()
-    ccart=Cart.objects.filter(user=uid).count()
     try:
         uid = Register.objects.get(email=request.session['clientemail'])
+        ccart=Cart.objects.filter(user=uid).count()
         if request.method=='POST':
             Review.objects.create(
                 user=uid,
@@ -298,7 +275,7 @@ def review(request,pk):
                 message=request.POST['review']
             )
             ms='Review is Send'
-            return render(request,'review.html',{'uid':uid,'pro':product,'ms':ms})
+            return render(request,'review.html',{'uid':uid,'pro':product,'ms':ms,'creview':creview,'review':review,'ccart':ccart})
         return render(request,'review.html',{'uid':uid,'pro':product,'creview':creview,'review':review,'ccart':ccart})
     except:
         return redirect('login')
@@ -307,17 +284,78 @@ def cart(request):
         uid = Register.objects.get(email=request.session['clientemail'])
         cart=Cart.objects.filter(user=uid)
         ccart=Cart.objects.filter(user=uid).count()
-        
-       
-        print(cart)
-        car = 0
-        total = 0 
+        car=0
         for i in cart:
-            total = (i.cart.price * i.qty)
             car += (i.cart.price * i.qty)
-
-        return render(request,'cart.html',{'uid':uid,'cart':cart,'car':car,'total':total,'ccart':ccart})
+        dis=car-car*25/100
+        return render(request,'cart.html',{'uid':uid,'cart':cart,'car':car,'dis':dis,'ccart':ccart})
     except:
         return redirect('login')
+def checkout(request):
+    if request.method == 'POST':
+        uid = Register.objects.get(email=request.session['clientemail'])
+        cart=Cart.objects.filter(user=uid)
+        car=0
+        for i in cart:
+            car += (i.cart.price * i.qty)
+        dis=car-car*25/100
+        order = Order.objects.create(
+            cart = cart,
+            address = request.POST['address'],
+            pay_mode = request.POST['pay'],
+            amount = dis
+        )
+        if request.POST['pay'] == 'Online':
+            # currency = 'INR'
+            # amount = (product.price)*100  # Rs. 200
+        
+            # # Create a Razorpay Order
+            # razorpay_order = razorpay_client.order.create(dict(amount=amount,
+            #                                                 currency=currency,
+            #                                                 payment_capture='0'))
+        
+            # # order id of newly created order.
+            # razorpay_order_id = razorpay_order['id']
+            # callback_url = f'paymenthandler/{book.id}'
+        
+            # # we need to pass these details to frontend.
+            # context = {}
+            # context['razorpay_order_id'] = razorpay_order_id
+            # context['razorpay_merchant_key'] = settings.RAZOR_KEY_ID
+            # context['razorpay_amount'] = amount
+            # context['currency'] = currency
+            # context['callback_url'] = callback_url
+            # context['book'] =book
+            return render(request,'pay.html')
+
+        else:
+            msg = 'Your Booking is confirm you have pay amount onsite.'
+            return render(request,'order-complete.html',{'uid':uid,'msg':msg})
+    try:
+        uid = Register.objects.get(email=request.session['clientemail'])
+        cart=Cart.objects.filter(user=uid)
+        ccart=Cart.objects.filter(user=uid).count()
+        car=0
+        for i in cart:
+            car += (i.cart.price * i.qty)
+        dis=car-car*25/100
+        return render(request,'checkout.html',{'uid':uid,'cart':cart,'car':car,'dis':dis})
+    except:
+        return redirect('login')
+
+def order(request):
+    # uid = Register.objects.get(email=request.session['clientemail'])
+    # cart=Cart.objects.filter(user=uid)
+    # order = Order.objects.create(
+    #         cart=cart,
+    #         address= request.POST['address'],
+    #         pay_mode = request.POST['pay'],
+    #         amount= cart.cart.price
+    #     )
+    # if request.POST['pay'] == 'online':
+    #     return render(request,'pay.html') 
+    # else:
+    #     msg = 'your order is confrom'
+    return render(request,'order-complete.html')
 def add(request):
     return render(request,'add-to-wishlist.html')

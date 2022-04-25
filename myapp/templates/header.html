@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Focus - Bootstrap Admin Dashboard </title>
+    <title>Scarpa Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
     <link rel="stylesheet" href="{% static 'vendor/owl-carousel/css/owl.carousel.min.css' %}">
@@ -73,7 +73,7 @@
                                     <i class="mdi mdi-magnify"></i>
                                 </span>
                                 <div class="dropdown-menu p-0 m-0">
-                                    <form>
+                                    <form method="p">
                                         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                                     </form>
                                 </div>
@@ -168,34 +168,53 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="{% url 'aindex' %}">Dashboard 1</a></li>
-                            <li><a href="{% url 'index2' %}">Dashboard 2</a></li>
+                            <li><a href="{% url 'aindex' %}">Dashboard </a></li>
+                        
                         </ul>
                     </li>
                     
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-app-store"></i><span class="nav-text">product managment</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="{% url 'profile' %}">Profile</a></li>
+                            
                             <li><a href="{% url 'addproduct' %}">Add-Product</a></li>
-                            <li><a href="{% url 'productadmin' %}">Product-admin</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
+                            <li><a href="{% url 'productadmin' %}">All-product</a></li>
+                            <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
                                 <ul aria-expanded="false">
                                     <li><a href="{% url 'compose' %}">Compose</a></li>
                                     <li><a href="{% url 'inbox' %}">Inbox</a></li>
                                     <li><a href="{% url 'read' %}">Read</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                            
                         </ul>
                     </li>
                     
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-layout-25"></i><span class="nav-text">User Managment</span></a>
+                                class="icon icon-single-04"></i><span class="nav-text">User Managment</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{% url 'usermanage' %}">View User</a></li>
                         </ul>
                     </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                        class="icon icon-single-copy-06"></i><span class="nav-text">Review Managment</span></a>
+                    <ul aria-expanded="false">
+                    <li><a href="{% url 'areview' %}">View Review</a></li>
+                  </ul>
+                 </li>
+                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                    class="icon icon-layout-25"></i><span class="nav-text">Enquiry Managment</span></a>
+                <ul aria-expanded="false">
+                <li><a href="{% url 'enquiry' %}">View enquiry</a></li>
+              </ul>
+             </li>
+             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                class="icon icon-layout-25"></i><span class="nav-text">Profile Managment</span></a>
+            <ul aria-expanded="false">
+                <li><a href="{% url 'profile' %}"> View Profile</a></li>
+          </ul>
+         </li>
+             
                     
                     <!-- <li class="nav-label">Table</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
@@ -211,15 +230,7 @@
                                 class="icon icon-single-copy-06"></i><span class="nav-text">Pages</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{% url 'register' %}">Register</a></li>
-                            <li><a href="{% url 'login' %}">Login</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="{% url 'error400' %}">Error 400</a></li>
-                                    <li><a href="{% url 'error403' %}">Error 403</a></li>
-                                    <li><a href="{% url 'error404' %}">Error 404</a></li>
-                                    <li><a href="{% url 'error500' %}">Error 500</a></li>
-                                    <li><a href="{% url 'error503' %}">Error 503</a></li>
-                                </ul>
+                            <li><a href="{% url 'alogin' %}">Login</a></li>
                             </li>
                             <li><a href="{% url 'lockscreen' %}">Lock Screen</a></li>
                         </ul>

@@ -1,4 +1,5 @@
 from email.mime import image
+from http import client
 from django.shortcuts import redirect,render
 from .models import *
 from django.conf import settings
@@ -16,7 +17,8 @@ def aindex(request):
     creview=s.Review.objects.all().count
     pro = product.objects.all().count
     user = User.objects.all().count
-    return render(request,'aindex.html',{'uid':uid,'enq':enq,'pro':pro ,'user':user,'rev':review,'crev':creview})
+    client = s.Register.objects.all().count
+    return render(request,'aindex.html',{'uid':uid,'enq':enq,'pro':pro ,'user':user,'rev':review,'crev':creview,'client':client})
 
 
 def alogin(request):

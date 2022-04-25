@@ -23,7 +23,9 @@ urlpatterns = [
     path('review/<int:pk>',views.review,name='review'),
     path('carts/',views.carts,name='carts'),
     path('deletecarts/<int:pk>',views.deletecarts,name='deletecarts'),
-    path('checkout/<int:pk>',views.checkout,name='checkout'),
+    path('checkout/',views.checkout,name='checkout'),
+    path('order/',views.order,name='order'),
+
 
 
 
