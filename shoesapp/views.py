@@ -234,7 +234,7 @@ def product_details(request,pk):
         ccart=Cart.objects.filter(user=uid).count()
         return render(request,'product-detail.html',{'uid':uid,'pro':product,'creview':creview,'review':review,'ccart':ccart})
     except:
-        return render(request,'product-detail.html',{'pro':product,'creview':creview,'review':review})
+        return render(request,'product-detail.html',{'pro':product,'creview':creview,'review':review,'ccart':ccart})
 
 def carts(request):
     try:
@@ -303,7 +303,7 @@ def checkout(request):
             cart = cart,
             address = request.POST['address'],
             pay_mode = request.POST['pay'],
-            amount = dis
+            amount = cart.cart.price
         )
         if request.POST['pay'] == 'Online':
             # currency = 'INR'
@@ -331,17 +331,17 @@ def checkout(request):
         else:
             msg = 'Your Booking is confirm you have pay amount onsite.'
             return render(request,'order-complete.html',{'uid':uid,'msg':msg})
-    try:
-        uid = Register.objects.get(email=request.session['clientemail'])
-        cart=Cart.objects.filter(user=uid)
-        ccart=Cart.objects.filter(user=uid).count()
-        car=0
-        for i in cart:
-            car += (i.cart.price * i.qty)
-        dis=car-car*25/100
-        return render(request,'checkout.html',{'uid':uid,'cart':cart,'car':car,'dis':dis})
-    except:
-        return redirect('login')
+    # try:
+    #     uid = Register.objects.get(email=request.session['clientemail'])
+    #     cart=Cart.objects.filter(user=uid)
+    #     ccart=Cart.objects.filter(user=uid).count()
+    #     car=0
+    #     for i in cart:
+    #         car += (i.cart.price * i.qty)
+    #     dis=car-car*25/100
+    #     return render(request,'checkout.html',{'uid':uid,'cart':cart,'car':car,'dis':dis})
+    # except:
+    #     return redirect('login')
 
 def order(request):
     # uid = Register.objects.get(email=request.session['clientemail'])
