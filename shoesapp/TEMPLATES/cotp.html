@@ -93,7 +93,7 @@
 
 <div class="wrapper">
   <p style="color: green; text-align: center;">{{msg}}</p>
-  <div class="logo"> <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt=""> </div>
+  <div class="logo"> <img src="{% static 'assets/images/logo1.jpg' %}" alt=""> </div>
   <div class="text-center mt-4 name"> SCARPA </div>
   <form class="p-3 mt-3" method="POST" action="{% url 'cotp' %}">
     {% csrf_token %}

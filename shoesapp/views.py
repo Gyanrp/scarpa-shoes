@@ -295,16 +295,16 @@ def checkout(request):
     if request.method == 'POST':
         uid = Register.objects.get(email=request.session['clientemail'])
         cart=Cart.objects.filter(user=uid)
-        car=0
-        for i in cart:
-            car += (i.cart.price * i.qty)
-        dis=car-car*25/100
-        order = Order.objects.create(
-            cart = cart,
-            address = request.POST['address'],
-            pay_mode = request.POST['pay'],
-            amount = cart.cart.price
-        )
+        # car=0
+        # for i in cart:
+        #     car += (i.cart.price * i.qty)
+        # dis=car-car*25/100
+        # order = Order.objects.create(
+        #     cart = cart,
+        #     address = request.POST['address'],
+        #     pay_mode = request.POST['pay'],
+        #     amount = cart.cart.price
+        # )
         if request.POST['pay'] == 'Online':
             # currency = 'INR'
             # amount = (product.price)*100  # Rs. 200
@@ -331,17 +331,17 @@ def checkout(request):
         else:
             msg = 'Your Booking is confirm you have pay amount onsite.'
             return render(request,'order-complete.html',{'uid':uid,'msg':msg})
-    # try:
-    #     uid = Register.objects.get(email=request.session['clientemail'])
-    #     cart=Cart.objects.filter(user=uid)
-    #     ccart=Cart.objects.filter(user=uid).count()
-    #     car=0
-    #     for i in cart:
-    #         car += (i.cart.price * i.qty)
-    #     dis=car-car*25/100
-    #     return render(request,'checkout.html',{'uid':uid,'cart':cart,'car':car,'dis':dis})
-    # except:
-    #     return redirect('login')
+    try:
+        uid = Register.objects.get(email=request.session['clientemail'])
+        cart=Cart.objects.filter(user=uid)
+        ccart=Cart.objects.filter(user=uid).count()
+        car=0
+        for i in cart:
+            car += (i.cart.price * i.qty)
+        dis=car-car*25/100
+        return render(request,'checkout.html',{'uid':uid,'cart':cart,'car':car,'dis':dis})
+    except:
+        return redirect('login')
 
 def order(request):
     # uid = Register.objects.get(email=request.session['clientemail'])

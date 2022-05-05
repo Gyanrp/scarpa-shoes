@@ -139,9 +139,9 @@
                                         <i class="icon-user"></i>
                                         <span class="ml-2">Change Password </span>
                                     </a>
-                                    <a href="./email-inbox.html" class="dropdown-item">
+                                    <a href="{% url 'profile' %}" class="dropdown-item">
                                         <i class="icon-envelope-open"></i>
-                                        <span class="ml-2">Inbox </span>
+                                        <span class="ml-2">Profile </span>
                                     </a>
                                     <a href="{% url 'logout' %}" class="dropdown-item">
                                         <i class="icon-key"></i>
@@ -232,7 +232,7 @@
                             <li><a href="{% url 'register' %}">Register</a></li>
                             <li><a href="{% url 'alogin' %}">Login</a></li>
                             </li>
-                            <li><a href="{% url 'lockscreen' %}">Lock Screen</a></li>
+                            <!-- <li><a href="{% url 'lockscreen' %}">Lock Screen</a></li> -->
                         </ul>
                     </li>
                 </ul>
